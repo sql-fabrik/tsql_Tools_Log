@@ -1,14 +1,14 @@
 ﻿
 CREATE PROC addInfrastructure.usp_list_ProjectParameters_DISTINCT
                                @pSSIS_Folder_name   sysname      
-                             , @pSSIS_Project_name  sysname 
+                             , @pSSIS_Project_name  sysname      
 AS
 BEGIN
 
 SELECT DISTINCT 
        op.parameter_name
-	 , op.data_type
-	 , op.design_default_value
+     , op.data_type
+     , op.design_default_value
 FROM   SSISDB.catalog.folders fo
 join   SSISDB.catalog.projects pr
 ON     fo.folder_id = pr.folder_id

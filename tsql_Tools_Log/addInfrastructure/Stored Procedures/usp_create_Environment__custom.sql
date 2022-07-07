@@ -6,11 +6,11 @@ BEGIN
 
 ---- SSIS  create Environment
 ---- SSIS  Environment-Variables
-IF EXISTS( 	SELECT *
-			FROM   SSISDB.catalog.folders fo
-			join   SSISDB.catalog.environments en
-			ON     fo.folder_id = en.folder_id
-			WHERE  en.name = 'env_Prod' )
+IF EXISTS( SELECT *
+           FROM   SSISDB.catalog.folders fo
+           join   SSISDB.catalog.environments en
+           ON     fo.folder_id = en.folder_id
+           WHERE  en.name = 'env_Prod' )
 EXEC [SSISDB].[catalog].[delete_environment] @environment_name=N'env_Prod', @folder_name=N'OXAION'
 ;
 

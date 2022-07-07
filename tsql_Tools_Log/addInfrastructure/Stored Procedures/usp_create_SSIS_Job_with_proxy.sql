@@ -1,7 +1,7 @@
 ﻿CREATE PROC [addInfrastructure].[usp_create_SSIS_Job_with_proxy]
-                               @pSSIS_Folder_name    sysname
-							 , @pSSIS_Project_name   sysname  
-							 , @pSSIS_Proxy_Name     sysname
+                               @pSSIS_Folder_name    sysname    
+                             , @pSSIS_Project_name   sysname    
+                             , @pSSIS_Proxy_Name     sysname    
 
 AS
 BEGIN
@@ -18,7 +18,7 @@ Declare @tempSteps TABLE(
         , Environment_reference_type sysname NULL
         , Package_Name               sysname NULL
         , step_nr                    int     
-        , max_step_nr                int
+        , max_step_nr                int     
         )
 
 INSERT INTO @tempSteps
@@ -176,16 +176,16 @@ BEGIN
                     , @subsystem         = N'SSIS'
                     , @command           = @SSIS_cmd
                     , @database_name     = N'master'
-					, @flags             = 0
+                    , @flags             = 0
                     , @proxy_name        = @pSSIS_Proxy_Name
     END  -- IF ( @pstep_nr > 1 )
     --------------------------------------------
     IF ( @step_nr = @max_step_nr )
     BEGIN
-        EXEC msdb.dbo.sp_update_job @job_id        = @jobId
-		                          , @start_step_id = 1
+        EXEC msdb.dbo.sp_update_job @job_id        = @jobId 
+                                  , @start_step_id = 1      
         EXEC msdb.dbo.sp_add_jobserver @job_id      = @jobId
-		                             , @server_name = @Servername
+                                     , @server_name = @Servername
     END  -- IF ( @pstep_nr = @pmax_step_nr )
 
     --------------------------------------------

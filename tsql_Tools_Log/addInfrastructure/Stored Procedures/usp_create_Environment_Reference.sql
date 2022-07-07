@@ -1,7 +1,7 @@
 ﻿CREATE PROC [addInfrastructure].[usp_create_Environment_Reference]
                                @pSSIS_Folder_name       sysname  
-							 , @pSSIS_Project_name      sysname  
-							 , @pEnvironment_name		sysname  
+                             , @pSSIS_Project_name      sysname  
+                             , @pEnvironment_name       sysname  
 
 AS
 BEGIN
@@ -24,7 +24,7 @@ select er.reference_id
 --   , fo.name    as 'folder_name'
 --   , pr.project_id
 --   , pr.name    as 'project_name'
-	 , er.environment_name
+     , er.environment_name
 from   SSISDB.catalog.folders fo
 join   SSISDB.catalog.projects pr
 on     fo.folder_id = pr.folder_id
@@ -105,8 +105,8 @@ FROM ( select fo.name      as 'folder_name'
             , op.object_name  as 'package_name'
             , op.parameter_name
        from   SSISDB.catalog.folders fo
-	   join   SSISDB.catalog.projects pr
-	   on     fo.folder_id = pr.folder_id
+       join   SSISDB.catalog.projects pr
+       on     fo.folder_id = pr.folder_id
        join   SSISDB.catalog.object_parameters op
        on     pr.project_id = op.project_id
        where  fo.name               like @pSSIS_Folder_name
@@ -121,12 +121,12 @@ join
             , ev.value   as 'environment_value'
             , ev.type    as 'environment_variable_type'
        from   SSISDB.catalog.folders fo
-	   join   SSISDB.catalog.environments en
-	   on     fo.folder_id = en.folder_id
+       join   SSISDB.catalog.environments en
+       on     fo.folder_id = en.folder_id
        join   SSISDB.catalog.environment_variables ev
        on     en.environment_id = ev.environment_id
        where  fo.name   like @pSSIS_Folder_name
-	     and  en.name   like @pEnvironment_name
+         and  en.name   like @pEnvironment_name
      ) E
 ON     P.parameter_name = E.environment_variable
 ORDER  by P.project_name, P.package_name, P.parameter_name

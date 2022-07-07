@@ -2,11 +2,11 @@
                    @pPackageName       nvarchar(100) --  = ?
                  , @pTaskName          nvarchar(100) --  = ?
                  , @pUserName          nvarchar(100) --  = ?
-				 , @pPackStartTime     datetime      --  = ?
+                 , @pPackStartTime     datetime      --  = ?
                  , @vSuccessCode       int           --  = ?
-                 , @vConfigSource      nvarchar(100) --  = ?  
-                 , @vConfigPackagename nvarchar(100) --  = ?    
-                 , @vConfigValue       int           --  = ?   
+                 , @vConfigSource      nvarchar(100) --  = ?
+                 , @vConfigPackagename nvarchar(100) --  = ?
+                 , @vConfigValue       int           --  = ?
 AS
 BEGIN
 
@@ -15,8 +15,8 @@ Set @pPackStartTime = CAST( @pPackStartTime as smalldatetime );
 Declare @MessageText nvarchar(500);
 Set     @MessageText = N',"vConfigSource":"'        + @vConfigSource                       + '"'
                      + N',"vConfigPackagename":"'   + @vConfigPackagename                  + '"'
-					 + N',"vConfigValue":"'         + CAST(@vConfigValue as nvarchar(10))  + '"'
-				     + N'}'
+                     + N',"vConfigValue":"'         + CAST(@vConfigValue as nvarchar(10))  + '"'
+                     + N'}'
 
 
 -- specific "end-message"
@@ -40,7 +40,7 @@ IF LEFT(@MessageText, 7) <> '{ "Pack'
 
  
 INSERT INTO [audit].[SSIS_Logging]
-	   (   PackStartTime,   SuccessCode,   PackageName,   TaskName,   UserName,  MessageText )
+       (   PackStartTime,   SuccessCode,   PackageName,   TaskName,   UserName,  MessageText )
 VALUES ( @pPackStartTime, @vSuccessCode, @pPackageName, @pTaskName, @pUserName, @MessageText )
 
 END  --  end Proc

@@ -9,7 +9,7 @@ AS
 BEGIN
 
 Set NoCount ON;
-	  
+
 IF ( @keep_force = 'force_new')
 BEGIN
 print 'parameter: force_new'
@@ -45,12 +45,12 @@ INSERT into @tbl_Config_Values
      ( [variable_name] , [value] , [data_type]  )
 SELECT parameter_name  as 'variable_name'
      , configValue     as 'value'
-	 , data_type       as 'data_type'
+     , data_type       as 'data_type'
 FROM   OpenXML( @idoc, 'allValues/keyValue', 1 )
 WITH  ( parameter_name   sysname
       , data_type        sysname 
-	  , configValue      sysname
-	  )
+      , configValue      sysname
+      )
 
 Exec sp_xml_removedocument @idoc
 
@@ -65,8 +65,8 @@ Declare @vVar_Name  sysname
 WHILE @min <= @max
 BEGIN
     Set @vVar_Name   = ( select [variable_name] from @tbl_Config_Values where ID = @min )
-	Set @vValue      = ( select [value]         from @tbl_Config_Values where ID = @min )
-	Set @vData_Type  = ( select [data_type]     from @tbl_Config_Values where ID = @min )
+    Set @vValue      = ( select [value]         from @tbl_Config_Values where ID = @min )
+    Set @vData_Type  = ( select [data_type]     from @tbl_Config_Values where ID = @min )
 
     EXEC SSISDB.catalog.create_environment_variable @variable_name    = @vVar_Name
                                                   , @sensitive        = False     
@@ -83,7 +83,7 @@ END -- IF ( @keep_force = 'force_new')
 --------------------------------------
 IF ( @keep_force = 'keep_current' )
 BEGIN
-	print 'parameter: keep_current'
+    print 'parameter: keep_current'
 END
 
 END -- end PROC

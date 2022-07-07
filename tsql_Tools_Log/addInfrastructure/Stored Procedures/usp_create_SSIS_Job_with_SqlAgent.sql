@@ -1,6 +1,6 @@
 ﻿CREATE PROC [addInfrastructure].[usp_create_SSIS_Job_with_SqlAgent]
-                               @pSSIS_Folder_name    sysname
-							 , @pSSIS_Project_name   sysname  
+                               @pSSIS_Folder_name    sysname       
+                             , @pSSIS_Project_name   sysname       
 
 AS
 BEGIN
@@ -175,16 +175,16 @@ BEGIN
                     , @subsystem         = N'SSIS'
                     , @command           = @SSIS_cmd
                     , @database_name     = N'master'
-					, @flags             = 0
+                    , @flags             = 0
 
     END  -- IF ( @pstep_nr > 1 )
     --------------------------------------------
     IF ( @step_nr = @max_step_nr )
     BEGIN
-        EXEC msdb.dbo.sp_update_job @job_id        = @jobId
-		                          , @start_step_id = 1
+        EXEC msdb.dbo.sp_update_job @job_id        = @jobId 
+                                  , @start_step_id = 1      
         EXEC msdb.dbo.sp_add_jobserver @job_id      = @jobId
-		                             , @server_name = @Servername
+                                     , @server_name = @Servername
     END  -- IF ( @pstep_nr = @pmax_step_nr )
 
     --------------------------------------------

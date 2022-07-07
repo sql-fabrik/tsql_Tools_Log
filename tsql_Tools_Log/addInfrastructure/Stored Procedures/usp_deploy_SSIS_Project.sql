@@ -3,7 +3,7 @@ CREATE PROC addInfrastructure.usp_deploy_SSIS_Project
                                @pFile_Folder        nvarchar(200) 
                              , @pFile_Name          nvarchar(200) 
                              , @pSSIS_Folder_name   sysname       
-                             , @pSSIS_Project_name  sysname		 
+                             , @pSSIS_Project_name  sysname       
 AS
 BEGIN
 ----
@@ -26,11 +26,11 @@ Set @dsqlProjectBinary =
 
 exec sp_executesql @sqlCmd
                  , @parDef
-				 , @dsqlProjectBinary = @ProjectBinary  OUTPUT
-----	
-	
+                 , @dsqlProjectBinary = @ProjectBinary  OUTPUT
+----
+    
 Exec SSISDB.catalog.deploy_project @folder_name    = @pSSIS_Folder_name
                                  , @project_name   = @pSSIS_Project_name
-								 , @project_stream = @ProjectBinary
+                                 , @project_stream = @ProjectBinary
 
 END  -- end PROC 
