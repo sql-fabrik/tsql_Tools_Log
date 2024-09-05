@@ -21,12 +21,12 @@ EXEC [SSISDB].[catalog].[create_environment]
 ;
 ----
 
-DECLARE @varSourceDB    sql_variant = N'OXAION_Staging'
-      , @varSourceSrv   sql_variant = N'BWTDESQL01\BI'
-      , @varTargetDB    sql_variant = N'OXAION_Staging'
-      , @varTargetSrv   sql_variant = N'BWTDESQL01\BI'
+DECLARE @varSourceDB    sql_variant = N'sourceDB'
+      , @varSourceSrv   sql_variant = N'sourceSrv\BI'
+      , @varTargetDB    sql_variant = N'targetDB'
+      , @varTargetSrv   sql_variant = N'sourceSrv\BI'
       , @varToolsDB     sql_variant = N'Tools_Log'
-      , @varToolsSrv    sql_variant = N'BWTDESQL01\BI'
+      , @varToolsSrv    sql_variant = N'sourceSrv\BI'
 
 
 EXEC [SSISDB].[catalog].[create_environment_variable] 

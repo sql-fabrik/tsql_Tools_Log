@@ -30,13 +30,13 @@ join   SSISDB.catalog.projects pr
 on     fo.folder_id = pr.folder_id
 join   SSISDB.catalog.environment_references er
 on     pr.project_id = er.project_id
-where  fo.name             like @pSSIS_Folder_name
+where  fo.name             like @pSSIS_Folder_name 
   and  pr.name             like @pSSIS_Project_name
-  and  er.environment_name like @pEnvironment_name
+  and  er.environment_name like @pEnvironment_name 
 
 -- min/ max WHILE 
 Declare @min  int = ( select MIN(ID) from @tbl_del_Environment_Reference ) 
-      , @max  int = ( select MAX(ID) from @tbl_del_Environment_Reference )
+      , @max  int = ( select MAX(ID) from @tbl_del_Environment_Reference ) 
 Declare @ref  int
 
 WHILE @min <= @max
