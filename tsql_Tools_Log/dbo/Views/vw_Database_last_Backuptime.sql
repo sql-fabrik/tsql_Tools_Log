@@ -39,6 +39,19 @@ SQ_backup_finish_date as
 SELECT ROW_NUMBER()  over (Order by db.database_id)  as 'rowNr'       
      , @@SERVERNAME                                  as 'Servername'  
      , db.name                                       as 'DatabaseName'
+     , db.compatibility_level                                         
+     , CASE
+          WHEN  db.compatibility_level = 160       THEN  'SQL Server 2022'    
+          WHEN  db.compatibility_level = 150       THEN  'SQL Server 2019'    
+          WHEN  db.compatibility_level = 140       THEN  'SQL Server 2017'    
+          WHEN  db.compatibility_level = 130       THEN  'SQL Server 2016'    
+          WHEN  db.compatibility_level = 120       THEN  'SQL Server 2014'    
+          WHEN  db.compatibility_level = 110       THEN  'SQL Server 2012'    
+--        WHEN  db.compatibility_level = 105       THEN  'SQL Server 2008 R2' 
+          WHEN  db.compatibility_level = 100       THEN  'SQL Server 2008'    
+          WHEN  db.compatibility_level =  90       THEN  'SQL Server 2005'    
+          WHEN  db.compatibility_level =  80       THEN  'SQL Server 2000'    
+       END                                           as 'comp_level_desc'     
      , db.recovery_model_desc  --
      , db.database_id
      , IsNULL(bs.type, '')                           as 'backup_type'
@@ -62,6 +75,8 @@ ON     db.name                = bs.database_name  collate Latin1_General_CI_AS
 )
 SELECT FD.Servername         
      , FD.DatabaseName       
+     , FD.compatibility_level
+     , FD.comp_level_desc    
      , FD.recovery_model_desc
      , FD.database_id        
      , FD.backup_type        
