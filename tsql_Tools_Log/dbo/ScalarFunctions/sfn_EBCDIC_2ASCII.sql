@@ -211,7 +211,7 @@ BEGIN
     WHEN @input = 'C7'   THEN 'G'    --  row:199      // Großes G
     WHEN @input = 'C8'   THEN 'H'    --  row:200      // Großes H
     WHEN @input = 'C9'   THEN 'I'    --  row:201      // Großes I
-    WHEN @input = 'CA'   THEN '­'    --  row:202  SHY // Syllable hyphen (Shy)
+    WHEN @input = 'CA'   THEN '­'     --  row:202  SHY // Syllable hyphen (Shy)
     WHEN @input = 'CB'   THEN ''     --  row:203      // Nicht belegt
     WHEN @input = 'CC'   THEN ''     --  row:204      // Nicht belegt
     WHEN @input = 'CD'   THEN ''     --  row:205      // Nicht belegt
